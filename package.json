@@ -1,0 +1,17 @@
+{
+  "name": "rebalancce",
+  "version": "1.0.0",
+  "description": "---\r ## **Comming soon**",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "node --watch src/server.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "fastify": "^4.28.1"
+  }
+}

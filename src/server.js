@@ -1,29 +1,18 @@
 import { fastify } from "fastify"
-import { DataBase } from "./database_memory.js"
+import { events_controller } from "./events_controller.js"
 
 
+// creating server and database instances:
 const server = fastify()
-const database = new DataBase
-database.add_new_event({
-  type: "revenue",
-  value: 320,
-  data: "10/08/2024"
-})
 
+// define the controllers pluggins:
+server.register(events_controller, { prefix: '/events' })
 
-server.get('/', (request, reply) => {
-  console.log(database.list_events());
-
-  reply.status(200).send('Home page [GET]')
-})
-
-server.put('/', (request, reply) => {
-  reply.send(' Home page [PUT]')
-})
-
+// try execute de server in home network:
 try {
-  server.listen({ port: 3000, host: '0.0.0.0' })
+  server.listen({ port: 3000, host: '0.0.0.0' })  // server ON;
 } catch (error) {
   server.log.error(error)
-  process.exit(1)
+  process.exit(1)   // if has some thing wrong, kill server; 
 }
+// ----

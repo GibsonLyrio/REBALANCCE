@@ -2,16 +2,22 @@
   "name": "rebalancce",
   "version": "1.0.0",
   "description": "---\r ## **Comming soon**",
-  "main": "index.js",
-  "type": "module",
+  "main": "index.mjs",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "node --watch src/server.js"
+    "start:dev": "nodemon ./src/server/index.mjs",
+    "start": "node ./src/server/index.mjs"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "fastify": "^4.28.1"
-  }
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "express-validator": "^7.1.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.4"
+  },
+  "type": "module"
 }

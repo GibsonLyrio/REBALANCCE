@@ -10,6 +10,8 @@ eventsRouter.use((req, res, next) => {
 
 // define homepage route
 eventsRouter.get('/', (req, res) => {
+  console.log(req.session)
+  console.log(req.session.id)  
   return res.status(200).send({ message: 'This is home page of events' })
 })
 

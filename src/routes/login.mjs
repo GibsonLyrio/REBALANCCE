@@ -1,17 +1,13 @@
-import Express, { response } from 'express'
-import routes from './routes/index.mjs'
-import 'dotenv/config'
+import Router from 'express'
 import cookieParser from 'cookie-parser'
 import session from 'express-session'
 import passport from 'passport'
-import './strategies/local_strategy.mjs'
+import '../strategies/local_strategy.mjs'
 
-const express = Express();
-const PORT = process.env.PORT || 3000
+const loginRouter = Router()
 
-express.use(Express.json())
-express.use(cookieParser())
-express.use(
+loginRouter.use(cookieParser())
+loginRouter.use(
   session({
     secret: 'a',
     saveUninitialized: false,
@@ -21,19 +17,18 @@ express.use(
     }
   })
 )
-express.use(passport.initialize())
-express.use(passport.session())
-express.use(routes)
+loginRouter.use(passport.initialize())
+loginRouter.use(passport.session())
 
-express.post(
-  '/api/auth',
+loginRouter.post(
+  '/',
   passport.authenticate('local'),
   (req, res) => {
     return res.sendStatus(200)
   }
 )
 
-express.get('/api/auth/status', (req, res) => {
+loginRouter.get('/status', (req, res) => {
   console.log(`Inside /auth/status/ endpoint with user ${req.user}`)
   if (req.user) {
     console.log(req.user);
@@ -42,7 +37,7 @@ express.get('/api/auth/status', (req, res) => {
   return res.sendStatus(401)
 })
 
-express.post('/api/auth/logout', (req, res) => {
+loginRouter.post('/logout', (req, res) => {
   if(!req.user) return res.sendStatus(401)
   req.logout((err) => {
     if (err) return res.sendStatus(400)
@@ -50,6 +45,4 @@ express.post('/api/auth/logout', (req, res) => {
   })
 })
 
-express.listen(PORT, { host: '0.0.0.0' }, () => {
-  console.log(`Running on port ${PORT}`)
-})
+export default loginRouter

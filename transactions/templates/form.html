@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Formulario transação</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'styles/form.css' %}">
+</head>
+
+<body>
+  <div class="container">
+    <form action="submit" class="form">
+      <table class="formTable">
+        <tr>
+          <th colspan="3">
+            Cadastrar nova transação
+          </th>
+        </tr>
+        <tr>
+          <td>
+            <input type="radio" name="type" id="typeRevenue" required><label for="typeRevenue">Entrada</label>
+          </td>
+          <td>
+            <input type="radio" name="type" id="typeExpense"><label for="typeExpense">Saída</label>
+          </td>
+          <td>
+            <label for="value">Valor</label><input type="number" id="value" placeholder="R$0,00" required>
+          </td>
+        </tr>
+        <tr>
+          <td colspan="3">
+            <label for="description">Descrição</label><input type="text" id="description" placeholder="Ex: Pizza iFood" required>
+          </td>
+        </tr>
+      </table>
+      <button type="submit" class="confirmButton">Confirmar</button>
+    </form>
+  </div>
+</body>
+
+</html>

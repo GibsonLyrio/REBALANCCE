@@ -13,6 +13,9 @@
   <div class="container">
     <form action="{% url 'form'%}" method="post" class="form">
       {% csrf_token %}
+      {% if editMode == True %}
+      <h1>Editando: {{ editFormData }}</h1>
+      {% endif %}
       <table class="formTable">
         <tr>
           <th colspan="3">
@@ -21,20 +24,35 @@
         </tr>
         <tr class="valuesLine">
           <td class="typeLine">
-            <label for=""></label>Tipo:<input list="types" name="type" placeholder="Receita/Despesa">
-            <datalist id="types">
-              <option value="receita">
-              <option value="despesa">
-            </datalist>
-          </td>
-          <td class="valueLine">
-            <label for="value">Valor:</label><input type="number" id="value" name="value" placeholder="R$0,00" required>
+            <fieldset class="fieldSet">
+              {% if editMode == True %}
+                <input
+                  type="radio" name="type"
+                  id="revenue" value="True"
+                  {% if editFormData.type == True %} checked {% endif %}>
+                <label for="revenue">Entrada</label>
+                <input
+                  type="radio" name="type"
+                  id="expenses" value="False"
+                  {% if editFormData.type == False %} checked {% endif  %}>
+                <label for="expenses">Saída</label>
+              {% else %}
+                <input type="radio" name="type" id="revenue" value="True">
+                <label for="revenue">Entrada</label>
+                <input type="radio" name="type" id="expenses" value="False">
+                <label for="expenses">Saída</label>
+              {% endif %}
+            </fieldset>
+            </td>
+            <td class="valueLine">
+              <label for="value">Valor:</label><input type="number" id="value" name="value" placeholder="R$0,00"
+              value="{{ editFormData.value }}" required>
           </td>
         </tr>
         <tr>
           <td colspan="3" class="descriptionLine">
             <label for="description">Descrição:</label><input type="text" id="description" name="description"
-              placeholder="Ex: Pizza iFood" required>
+              placeholder="Ex: Pizza iFood" value="{{ editFormData.description }}">
           </td>
         </tr>
       </table>

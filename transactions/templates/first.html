@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Transacoes</title>
+  {% load static %}
+  <link rel="stylesheet" href="{% static 'styles/first.css' %}">
+</head>
+
+<body>
+  <div class="container">
+    <div class="box">
+      <h1>Nenhum transação registrada</h1>
+      <div class="addNew">
+        <h3>Começe adicionando alguma coisa</h3>
+        <a href="{% url 'form' %}" class="addTransaction">
+          <img src="{% static 'icons/add_icon_white.png' %}" class="button">
+        </a>
+      </div>
+      <img class="illustration" src="{% static 'illustrations/finance_graph.svg' %}" alt="">
+    </div>
+  </div>
+</body>
+
+</html>

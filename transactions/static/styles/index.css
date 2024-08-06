@@ -5,7 +5,7 @@
   font-weight: bold;
   padding: 0;
   margin: 0;
-  color: #111111;
+  color: #080808;
 }
 
 .container {
@@ -43,7 +43,8 @@
 }
 
 .transactionsTable tr th {
-  background-color: #111111;
+  background-color: #080808;
+  border: 3px solid #080808;
   color: #ffffff;
   text-align: left;
   font-size: larger;
@@ -62,28 +63,28 @@
   background-color: #f2f2f2;
 }
 
-.transactionsTable tbody tr:last-of-type {
-  border-bottom: 2px solid #111111;
-}
-
 .transactionsTable .revenue {
+  border-left: 3px solid #00af89;
   color: #00af89;
   font-weight: bold;
 }
 .transactionsTable .expense {
+  border-left: 3px solid #e00043;
   color: #e00043;
   font-weight: bold;
 }
 
 
 /* edit button style */
-.editLinkClick:hover {
-  transform: scale(1.25);
-  transition: 200ms ease-out;
+.actionButton {
+  width: 10px;
+  margin: 4px;
+  border: none;
+  color: #080808;
 }
-.editLinkClick:active {
-  transition: ease-out;
-  transform: scale(0.9);
+.actionButton:hover {
+  transform: scale(1.2);
+  transition: 200ms ease-out;
 }
 
 /* new transation button style */
@@ -92,10 +93,6 @@
 }
 
 .button:hover {
-  transform: scale(1.25);
-}
-
-#2 {
-  color: #e00043;
-  background-color: #e00043;
+  margin: 4px;
+  transform: scale(1.20);
 }

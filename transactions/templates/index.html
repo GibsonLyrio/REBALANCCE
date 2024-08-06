@@ -7,6 +7,7 @@
   <title>Transacoes</title>
   {% load static %}
   <link rel="stylesheet" href="{% static 'styles/index.css' %}">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
 </head>
 
 <body>
@@ -22,19 +23,18 @@
       </tr>
       {% for transaction in transactions %}
       <tr>
-
         {% if transaction.type == True %}
-        <td>
+        <td class="revenue">
           Entrada
         </td>
-        <td class="revenue">
+        <td class="revenueValue">
           R${{ transaction.value }}
         </td>
         {% else %}
-        <td>
+        <td class="expense">
           Saída
         </td>
-        <td class="expense">
+        <td class="expenseValue">
           R${{ transaction.value }}
         </td>
         {% endif %}
@@ -42,16 +42,19 @@
         <td>
           {{ transaction.description }}
         </td>
-        <td>
-          <a href="{% url 'form' %}">
-            <img src="{% static 'icons/edit_icon_pencil.png' %}" class="button">
-          </a>
-        </td>
-        <td>
-          <a href="{% url 'form' %}">
-            <img src="{% static 'icons/delete_icon_trash.png' %}" class="button">
-          </a>
-        </td>
+        <form action="{% url 'form' %}" method="post">
+          {% csrf_token %}
+          <td>
+            <button type="submit" class="actionButton" name="delete" value="{{transaction.id}}"><span class="material-symbols-outlined">
+              delete
+              </span></button>
+          </td>
+          <td>
+            <button type="submit" class="actionButton" name="edit" value="{{transaction.id}}"><span class="material-symbols-outlined">
+              edit
+              </span></button>
+          </td>
+        </form>
       </tr>
       {% endfor %}
 

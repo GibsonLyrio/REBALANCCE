@@ -1,10 +1,33 @@
-body {
+/* general defines */
+* {
   font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  font-size: medium;
+  font-weight: bold;
+  padding: 0;
+  margin: 0;
   color: #111111;
+}
+
+.container {
+  padding: 10px;
+  width: 100%;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-content: center;
   align-items: center;
+  justify-content: center;
+}
+
+.addTransaction {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+.addTransaction h1 {
+  font-size: larger;
+  margin: 12px 12px;
 }
 
 /* table style */
@@ -12,7 +35,8 @@ body {
   border-collapse: collapse;
   margin: 25px 0;
   font-size: 0.9em;
-  min-width: 400px;
+  width: 80vw;
+  max-width: 450px;
   border-radius: 5px 5px 0 0;
   overflow: hidden;
   box-shadow: 0 0 20px rgb(0, 0, 0, 0.25);
@@ -22,12 +46,12 @@ body {
   background-color: #111111;
   color: #ffffff;
   text-align: left;
-  font-weight: bold;
+  font-size: larger;
 }
 
 .transactionsTable th,
 .transactionsTable td {
-  padding: 12px 15px;
+  padding: 12px 14px;
 }
 
 .transactionsTable tbody tr {
@@ -54,10 +78,24 @@ body {
 
 /* edit button style */
 .editLinkClick:hover {
-  transform: scale(1.2);
-  transition: 200ms ease-in-out;
+  transform: scale(1.25);
+  transition: 200ms ease-out;
 }
 .editLinkClick:active {
-  transition: ease-in;
-  transform: scale(0.7);
+  transition: ease-out;
+  transform: scale(0.9);
+}
+
+/* new transation button style */
+.button {
+  transition: all 200ms ease-in-out;
+}
+
+.button:hover {
+  transform: scale(1.25);
+}
+
+#2 {
+  color: #e00043;
+  background-color: #e00043;
 }

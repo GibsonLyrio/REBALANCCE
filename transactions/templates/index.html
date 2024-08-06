@@ -10,45 +10,53 @@
 </head>
 
 <body>
-  <h1>Todas transações</h1>
-  <table class="transactionsTable">
-    <tr>
-      <th>Tipo</th>
-      <th>Valor</th>
-      <th colspan="2">Descrição</th>
-    </tr>
-    {% for transaction in transactions %}
-    <tr>
+  <div class="container">
+    <a href="{% url 'form' %}" class="addTransaction">
+      <img src="{% static 'icons/add_icon_plus.png' %}" class="button">
+    </a>
+    <table class="transactionsTable">
+      <tr>
+        <th>Tipo</th>
+        <th>Valor</th>
+        <th colspan="3">Descrição</th>
+      </tr>
+      {% for transaction in transactions %}
+      <tr>
 
-      {% if transaction.type == True %}
-      <td>
-        Saída
-      </td>
-      <td class="revenue">
-        R${{ transaction.value }}
-      </td>
-      {% else %}
-      <td>
-        Entrada
-      </td>
-      <td class="expense">
-        R${{ transaction.value }}
-      </td>
-      {% endif %}
+        {% if transaction.type == True %}
+        <td>
+          Entrada
+        </td>
+        <td class="revenue">
+          R${{ transaction.value }}
+        </td>
+        {% else %}
+        <td>
+          Saída
+        </td>
+        <td class="expense">
+          R${{ transaction.value }}
+        </td>
+        {% endif %}
 
-      <td>
-        {{ transaction.description }}
-      </td>
-      <td>
-        <!-- <button class="editLinkClick"><i></i></button> -->
-        <a href="http://192.168.100.3:8000/transactions/">
-          <img src="{% static 'icons/edit_icon_pencil.png' %}" class="editLinkClick">
-        </a>
-      </td>
-    </tr>
-    {% endfor %}
+        <td>
+          {{ transaction.description }}
+        </td>
+        <td>
+          <a href="{% url 'form' %}">
+            <img src="{% static 'icons/edit_icon_pencil.png' %}" class="button">
+          </a>
+        </td>
+        <td>
+          <a href="{% url 'form' %}">
+            <img src="{% static 'icons/delete_icon_trash.png' %}" class="button">
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
 
-  </table>
+    </table>
+  </div>
 </body>
 
 </html>

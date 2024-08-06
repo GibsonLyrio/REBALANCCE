@@ -11,27 +11,30 @@
 
 <body>
   <div class="container">
-    <form action="submit" class="form">
+    <form action="{% url 'form'%}" method="post" class="form">
+      {% csrf_token %}
       <table class="formTable">
         <tr>
           <th colspan="3">
             Cadastrar nova transação
           </th>
         </tr>
-        <tr>
-          <td>
-            <input type="radio" name="type" id="typeRevenue" required><label for="typeRevenue">Entrada</label>
+        <tr class="valuesLine">
+          <td class="typeLine">
+            <label for=""></label>Tipo:<input list="types" name="type" placeholder="Receita/Despesa">
+            <datalist id="types">
+              <option value="receita">
+              <option value="despesa">
+            </datalist>
           </td>
-          <td>
-            <input type="radio" name="type" id="typeExpense"><label for="typeExpense">Saída</label>
-          </td>
-          <td>
-            <label for="value">Valor</label><input type="number" id="value" placeholder="R$0,00" required>
+          <td class="valueLine">
+            <label for="value">Valor:</label><input type="number" id="value" name="value" placeholder="R$0,00" required>
           </td>
         </tr>
         <tr>
-          <td colspan="3">
-            <label for="description">Descrição</label><input type="text" id="description" placeholder="Ex: Pizza iFood" required>
+          <td colspan="3" class="descriptionLine">
+            <label for="description">Descrição:</label><input type="text" id="description" name="description"
+              placeholder="Ex: Pizza iFood" required>
           </td>
         </tr>
       </table>

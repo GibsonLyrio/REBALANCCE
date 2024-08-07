@@ -42,7 +42,7 @@
         <td>
           {{ transaction.description }}
         </td>
-        <form action="{% url 'form' %}" method="post">
+        <form action="{% url 'formEdit' %}" method="post">
           {% csrf_token %}
           <td>
             <button type="submit" class="actionButton" name="delete" value="{{transaction.id}}"><span class="material-symbols-outlined">
@@ -50,7 +50,7 @@
               </span></button>
           </td>
           <td>
-            <button type="submit" class="actionButton" name="edit" value="{{transaction.id}}"><span class="material-symbols-outlined">
+            <button type="submit" class="actionButton" name="update" value="{{transaction.id}}"><span class="material-symbols-outlined">
               edit
               </span></button>
           </td>

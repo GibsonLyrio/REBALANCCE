@@ -2,46 +2,82 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_protect 
 from .models import Transactions
 from django.http import HttpResponse, HttpResponseRedirect, QueryDict
+from django.urls import reverse
 
-# Create your views here.
+### Create your views here.
+# index page handler:
 def index(request):
+  if request.method != 'GET':
+    # early return, method no allowed
+    return HttpResponse(status_code=405)
+  
   context = {}
   context['transactions'] = Transactions.objects.all()
-  if Transactions.objects.count() == 0:
-    return render(request, 'first.html', context)
-  return render(request, 'index.html', context)
 
-@csrf_protect
+  # get all in database, and if isn't have any, redirect do first form:
+  if context['transactions'].count() == 0:
+    return render(request, 'first.html', context)
+
+  # otherwise, return de index page with all transactions: 
+  return render(request, 'index.html', context)
+# ----
+
+# first form page handler:
+def first(request):
+  context = {}
+  return render(request, 'first.html', context)
+# ----
+
+# transaction form page handler:
 def form(request):
   context = {}
-  if request.method == 'GET':
+  return render(request, 'form.html', context)
+# ----
+
+# add transaction backend handler:
+def formAdd(request):
+  context = {}
+  context['transaction'] = request.POST
+
+  transaction = Transactions()
+  transaction.type = context['transaction'].get('type')
+  transaction.value = context['transaction'].get('value')
+  transaction.description = context['transaction'].get('description')
+  transaction.save()
+  
+  return HttpResponseRedirect(reverse('index'))
+# ----
+
+#  edit transaction backend handler:
+def formEdit(request):
+  context = {}
+  context['transaction'] = request.POST
+
+  if 'update' in request.POST:
+    id = request.POST.get('update')
+    transaction = Transactions.objects.get(id=id)
+    context['transaction'] = transaction
+    context['editMode'] = True
     return render(request, 'form.html', context)
 
-  if request.method == 'POST':
-    print(f'\033[33m some values{request.POST}\033[m')
-    if 'delete' in request.POST:
-      id = request.POST.get('delete')
-      transaction = Transactions.objects.get(id=id)
-      transaction.delete()
-      return HttpResponseRedirect('/transactions')
-    
-    if 'edit' in request.POST:
-      id = request.POST.get('edit')
-      transaction = Transactions.objects.get(id=id)
-      context['editMode'] = True
-      context['editFormData'] = transaction
-      transaction.delete()
-      return render(request, 'form.html', context)
+  if 'delete' in request.POST:
+    id = request.POST.get('delete')
+    transaction = Transactions.objects.get(id=id)
+    transaction.delete()
 
-    newTransactions = Transactions()
+  return HttpResponseRedirect(reverse('index'))
+# ---
 
-    newTransactions.type = request.POST.get('type')
-    newTransactions.value = request.POST.get('value')
-    newTransactions.description = request.POST.get('description')
+# update transaction data backend function:
+def updateTransaction(request):
+  context = {}
+  context['transaction'] = request.POST
 
-    newTransactions.save()
-    
-    return HttpResponseRedirect('/transactions')
+  transaction = Transactions.objects.get(id=context['transaction'].get('id'))
+  transaction.type = context['transaction'].get('type')
+  transaction.value = context['transaction'].get('value')
+  transaction.description = context['transaction'].get('description')
+  transaction.save()
 
-def first(request):
-  return render(request, 'first', context={})
+  return HttpResponseRedirect(reverse('index'))
+# ----
